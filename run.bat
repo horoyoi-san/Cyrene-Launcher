@@ -1,0 +1,1 @@
+start wails3 dev
