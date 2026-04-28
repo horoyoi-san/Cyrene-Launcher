@@ -7,7 +7,8 @@
       "gameId": "gopR6Cufr3",
       "package": "game",
       "version": "8.7",
-      "output": "GameData/HonkaiImpact3rd"
+      "output": "GameData/HonkaiImpact3rd",
+      "region": "OSREL"
     },
     {
       "id": "Genshin",
@@ -16,7 +17,8 @@
       "gameId": "gopR6Cufr3",
       "package": "game",
       "version": "6.6",
-      "output": "GameData/GenshinImpact"
+      "output": "GameData/GenshinImpact",
+      "region": "OSREL"
     },
     {
       "id": "StarRail",
@@ -25,7 +27,8 @@
       "gameId": "4ziysqXOQ8",
       "package": "game",
       "version": "3.6",
-      "output": "GameData/HonkaiStarRail"
+      "output": "GameData/HonkaiStarRail",
+      "region": "OSREL"
     },
     {
       "id": "Zenless",
@@ -34,7 +37,8 @@
       "gameId": "gopR6Cufr3",
       "package": "game",
       "version": "2.7",
-      "output": "GameData/ZenlessZoneZero"
+      "output": "GameData/ZenlessZoneZero",
+      "region": "OSREL"
     },
     {
       "id": "Nexusanima",
@@ -43,7 +47,8 @@
       "gameId": "4ziysqXOQ8",
       "package": "game",
       "version": "0.3.0",
-      "output": "GameData/HonkaiNexusanima"
+      "output": "GameData/HonkaiNexusanima",
+      "region": "OSBETA"
     },
     {
       "id": "PetitPlanet",
@@ -52,7 +57,8 @@
       "gameId": "4ziysqXOQ8",
       "package": "game",
       "version": "0.92.7",
-      "output": "GameData/PetitPlanet"
+      "output": "GameData/PetitPlanet",
+      "region": "OSBETA"
     }
   ]
 }
