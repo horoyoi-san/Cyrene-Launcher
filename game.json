@@ -1,7 +1,7 @@
 {
   "games": [
     {
-      "id": "HonkaiImpact3rd",
+      "id": "Impact3rd",
       "name": "Honkai Impact 3rd",
       "biz": "bh3_global",
       "gameId": "gopR6Cufr3",
@@ -10,7 +10,7 @@
       "output": "GameData/HonkaiImpact3rd"
     },
     {
-      "id": "GenshinImpact",
+      "id": "Genshin",
       "name": "Genshin Impact",
       "biz": "hk4e_global",
       "gameId": "gopR6Cufr3",
@@ -19,7 +19,7 @@
       "output": "GameData/GenshinImpact"
     },
     {
-      "id": "HonkaiStarRail",
+      "id": "StarRail",
       "name": "Honkai: Star Rail",
       "biz": "hkrpg_global",
       "gameId": "4ziysqXOQ8",
@@ -28,7 +28,7 @@
       "output": "GameData/HonkaiStarRail"
     },
     {
-      "id": "ZenlessZoneZero",
+      "id": "Zenless",
       "name": "Genshin Impact",
       "biz": "nap_global",
       "gameId": "gopR6Cufr3",
@@ -37,7 +37,7 @@
       "output": "GameData/ZenlessZoneZero"
     },
     {
-      "id": "HonkaiNexusanima",
+      "id": "Nexusanima",
       "name": "Honkai: Nexus anima",
       "biz": "abc_global",
       "gameId": "4ziysqXOQ8",
@@ -46,7 +46,7 @@
       "output": "GameData/HonkaiNexusanima"
     },
     {
-      "id": "Petit Planet",
+      "id": "PetitPlanet",
       "name": "Petit Planet",
       "biz": "hyg_global",
       "gameId": "4ziysqXOQ8",
