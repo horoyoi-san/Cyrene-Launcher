@@ -1,0 +1,1 @@
+wails3 dev
