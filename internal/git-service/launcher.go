@@ -1,8 +1,8 @@
 package gitService
 
 import (
-	"Cyrene-launcher/pkg/constant"
-	"Cyrene-launcher/pkg/models"
+	"SilwerWolf999-launcher/pkg/constant"
+	"SilwerWolf999-launcher/pkg/models"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -14,7 +14,7 @@ import (
 type GitService struct{}
 
 func (g *GitService) GetLatestLauncherVersion() (bool, string, string) {
-		if constant.LauncherGitUrl == "" {
+	if constant.LauncherGitUrl == "" {
 		return false, "", "updates disabled"
 	}
 	u, err := url.Parse(constant.LauncherGitUrl)

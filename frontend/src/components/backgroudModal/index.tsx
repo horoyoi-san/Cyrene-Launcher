@@ -7,7 +7,7 @@ const BackgroundVideo: React.FC = () => {
 
   const videos = [
     { name: "Honkai: Star Rail", src: "/video1.mp4", icon: "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/build/appicon.png" },
-    { name: "Cyrene", src: "/video2.mp4", icon: "https://launcher-webstatic.hoyoverse.com/launcher-public/2025/09/22/4cc51f558225dba65cc875ecd642cfe2_6726801704251292131.png" },
+    { name: "SilwerWolf999", src: "/video2.mp4", icon: "https://launcher-webstatic.hoyoverse.com/launcher-public/2025/09/22/4cc51f558225dba65cc875ecd642cfe2_6726801704251292131.png" },
   ];
 
   return (

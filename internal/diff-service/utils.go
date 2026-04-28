@@ -1,8 +1,8 @@
 package diffService
 
 import (
-	"Cyrene-launcher/pkg/constant"
-	"Cyrene-launcher/pkg/sevenzip"
+	"SilwerWolf999-launcher/pkg/constant"
+	"SilwerWolf999-launcher/pkg/sevenzip"
 	"io"
 	"os"
 	"path/filepath"

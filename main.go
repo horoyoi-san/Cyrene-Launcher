@@ -4,13 +4,13 @@ import (
 	"embed"
 	_ "embed"
 
-	appService "Cyrene-launcher/internal/app-service"
-	diffService "Cyrene-launcher/internal/diff-service"
-	fsService "Cyrene-launcher/internal/fs-service"
-	gitService "Cyrene-launcher/internal/git-service"
-	languageService "Cyrene-launcher/internal/language-service"
+	appService "SilwerWolf999-launcher/internal/app-service"
+	diffService "SilwerWolf999-launcher/internal/diff-service"
+	fsService "SilwerWolf999-launcher/internal/fs-service"
+	gitService "SilwerWolf999-launcher/internal/git-service"
+	languageService "SilwerWolf999-launcher/internal/language-service"
 
-	"Cyrene-launcher/pkg/constant"
+	"SilwerWolf999-launcher/pkg/constant"
 	"fmt"
 	"log"
 	"os"
@@ -67,8 +67,8 @@ func main() {
 	}
 	// Create application
 	app := application.New(application.Options{
-		Name:        "Cyrene-launcher",
-		Description: "Cyrene Launcher - Horoyoi-san",
+		Name:        "SilwerWolf999-launcher",
+		Description: "SilwerWolf999 Launcher - Horoyoi-san",
 		Services: []application.Service{
 			application.NewService(&fsService.FSService{}),
 			application.NewService(&languageService.LanguageService{}),
@@ -86,7 +86,7 @@ func main() {
 
 	// Create window
 	window := app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title: "Cyrene Launcher - Horoyoi-san",
+		Title: "SilwerWolf999 Launcher - Horoyoi-san",
 		Mac: application.MacWindow{
 			InvisibleTitleBarHeight: 50,
 			Backdrop:                application.MacBackdropTranslucent,
@@ -104,7 +104,7 @@ func main() {
 	iconBytes, _ := tools.ReadFile("assets/appicon.png")
 	systemTray := app.SystemTray.New()
 	systemTray.SetIcon(iconBytes)
-	systemTray.SetTooltip("Cyrene Launcher")
+	systemTray.SetTooltip("SilwerWolf999 Launcher")
 
 	// Attach the window to the system tray
 	menu := application.NewMenu()

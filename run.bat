@@ -1,1 +1,1 @@
-start wails3 dev
+wails3 dev

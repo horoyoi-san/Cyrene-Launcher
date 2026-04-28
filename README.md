@@ -1,4 +1,4 @@
-# 🚀 Cyrene Launcher
+# 🚀 SilwerWolf999 Launcher
 
 
 ![alt text](image.png)
@@ -7,21 +7,13 @@
 
 A lightweight and modern launcher for Anime game — designed to make launching, updating, and customizing your game easy and efficient.
 
----
-
-## ✨ Features
-
-- 🔄 Automatically update Cyrene Go and proxy tools on launch
-- 🎮 Launch the game with correct parameters and environment
-- 🌐 Switch in-game language (EN, JP, CN, KR) via Language Tools
-- 📦 Apply game patches using Hdiffz Tool (HDiffPatch-based)
 
 ---
 
 ## 🧑‍💻 About the Developer
 
 Hi! I'm **Horoyoi-san**, a developer passionate about building simple and powerful tools.  
-Cyrene Launcher is built with:
+SilwerWolf999 Launcher is built with:
 
 - ⚙️ **Go + Wails** for backend/frontend integration  
 - 🎨 **Tailwind CSS** + **DaisyUI** for a clean, responsive UI

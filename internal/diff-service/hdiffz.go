@@ -1,11 +1,11 @@
 package diffService
 
 import (
-	"Cyrene-launcher/pkg/constant"
-	"Cyrene-launcher/pkg/hpatchz"
-	"Cyrene-launcher/pkg/models"
-	"Cyrene-launcher/pkg/sevenzip"
-	"Cyrene-launcher/pkg/verifier"
+	"SilwerWolf999-launcher/pkg/constant"
+	"SilwerWolf999-launcher/pkg/hpatchz"
+	"SilwerWolf999-launcher/pkg/models"
+	"SilwerWolf999-launcher/pkg/sevenzip"
+	"SilwerWolf999-launcher/pkg/verifier"
 	"bufio"
 	"encoding/json"
 	"fmt"
@@ -68,11 +68,11 @@ func (h *DiffService) VersionValidate(gamePath, patchPath string) (bool, string)
 		if err := sevenzip.ExtractAFileFromZip(patchPath, "StarRail_Data\\StreamingAssets\\BinaryVersion.bytes.hdiff", constant.TempUrl); err != nil {
 			return false, err.Error()
 		}
-		
+
 		patchBinFile := filepath.Join(constant.TempUrl, "BinaryVersion.bytes.hdiff")
 		sourceBinFile := oldBinPath
 		tempBinFile = filepath.Join(constant.TempUrl, "BinaryVersion.bytes")
-		
+
 		if err := hpatchz.ApplyPatch(sourceBinFile, patchBinFile, tempBinFile); err != nil {
 			os.Remove(patchBinFile)
 			return false, err.Error()

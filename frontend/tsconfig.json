@@ -24,6 +24,6 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "bindings"],
+  "include": ["src", "src/types", "bindings"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

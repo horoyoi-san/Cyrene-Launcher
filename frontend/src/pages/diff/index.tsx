@@ -1,10 +1,8 @@
 import useSettingStore from "@/stores/settingStore"
-import { Check, Folder, File, X, Settings } from "lucide-react"
+import { Check, Folder, X, } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { DiffService } from "@bindings/Cyrene-launcher/internal/diff-service"
-import { FSService } from "@bindings/Cyrene-launcher/internal/fs-service"
-import { motion } from "motion/react"
+import { FSService } from "@bindings/SilwerWolf999-launcher/internal/fs-service"
 import useDiffStore from "@/stores/diffStore"
 
 export default function DiffPage() {
@@ -14,20 +12,6 @@ export default function DiffPage() {
         setIsLoading,
         folderCheckResult,
         setFolderCheckResult,
-        diffDir,
-        setDiffDir,
-        diffCheckResult,
-        setDiffCheckResult,
-        isDiffLoading,
-        setIsDiffLoading,
-        progressUpdate,
-        setProgressUpdate,
-        maxProgressUpdate,
-        setMaxProgressUpdate,
-        stageType,
-        setStageType,
-        messageUpdate,
-        setMessageUpdate
     } = useDiffStore()
 
     const [bgUrl, setBgUrl] = useState("");
@@ -107,106 +91,6 @@ export default function DiffPage() {
         }
     }
 
-    const handlePickDiffFile = async () => {
-        try {
-            setIsLoading({ game: false, diff: true })
-            const basePath = await FSService.PickFile("")
-            if (basePath) {
-                if (!basePath.endsWith(".7z") && !basePath.endsWith(".zip") && !basePath.endsWith(".rar")) {
-                    toast.error('Not valid file type')
-                    setDiffCheckResult('error')
-                    setDiffDir('')
-                    return
-                }
-                setDiffDir(basePath)
-                setDiffCheckResult('success')
-            } else {
-                toast.error('No file path selected')
-                setDiffCheckResult('error')
-                setDiffDir('')
-            }
-        } catch (err: any) {
-            toast.error('PickFile error:', err)
-            setDiffCheckResult('error')
-        } finally {
-            setIsLoading({ game: false, diff: false })
-        }
-    }
-
-    const handleUpdateGame = async () => {
-        const handleResult = (ok: boolean, error: string) => {
-            if (!ok) {
-                toast.error(error)
-                return false
-            }
-            return true
-        }
-
-        try {
-            setIsDiffLoading(true)
-
-            if (!gameDir || !diffDir) {
-                toast.error('Please select game directory and diff file')
-                return
-            }
-
-            setStageType('Check Type HDiff')
-            setProgressUpdate(0)
-            setMaxProgressUpdate(1)
-
-            const [isOk, validType, errorType] = await DiffService.CheckTypeHDiff(diffDir)
-            if (!handleResult(isOk, errorType)) return
-            setProgressUpdate(1)
-
-            if (['hdiffmap.json', 'hdifffiles.txt', 'hdifffiles.json'].includes(validType)) {
-                setStageType('Version Validate')
-                setProgressUpdate(0)
-                setMaxProgressUpdate(1)
-                const [validVersion, errorVersion] = await DiffService.VersionValidate(gameDir, diffDir)
-                if (!handleResult(validVersion, errorVersion)) return
-                setProgressUpdate(1)
-            }
-
-            setStageType('Data Extract')
-            const [validData, errorData] = await DiffService.DataExtract(gameDir, diffDir)
-            if (!handleResult(validData, errorData)) return
-
-            setStageType('Cut Data')
-            setMessageUpdate('')
-            const [validCut, errorCut] = await DiffService.CutData(gameDir)
-            if (!handleResult(validCut, errorCut)) return
-
-            switch (validType) {
-                case 'hdifffiles.txt':
-                case 'hdiffmap.json':
-                case 'hdifffiles.json': {
-                    setStageType('Patch Data')
-                    const [validPatch, errorPatch] = await DiffService.HDiffPatchData(gameDir)
-                    if (!handleResult(validPatch, errorPatch)) return
-
-                    setStageType('Delete old files')
-                    const [validDelete, errorDelete] = await DiffService.DeleteFiles(gameDir)
-                    if (!handleResult(validDelete, errorDelete)) return
-                    break
-                }
-                case 'manifest': {
-                    setStageType('Patch Data')
-                    const [validPatch, errorPatch] = await DiffService.LDiffPatchData(gameDir)
-                    if (!handleResult(validPatch, errorPatch)) return
-                    break
-                }
-            }
-
-            toast.success('Update game completed')
-        } catch (err: any) {
-            console.error(err)
-            toast.error(`PickFile error: ${err}`)
-        } finally {
-            setIsDiffLoading(false)
-        }
-    }
-
-
 
     return (
         <>
@@ -246,178 +130,68 @@ relative z-60">
                     {/* Header */}
                     <div className="text-center mb-2">
                         <h1 className="text-4xl font-bold mb-2">
-                            🎮 Game Update by Hdiffz
+                            🎮 Game patch
                         </h1>
-                        <p className="">Help you update game with hdiffz</p>
+                        <p className="">Help you update game with patch</p>
                     </div>
 
                     {/* Main Content */}
                     <div className="rounded-2xl p-2 space-y-4">
 
-                        {/* Folder Selection Section */}
-                        <div className="pb-2">
-                            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                                <Folder className="text-primary" size={24} />
-                                Game Directory
-                            </h2>
+{/* Folder Selection Section */}
+<div className="pb-2">
+    <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-sky-300">
+        <Folder className="text-sky-400 drop-shadow-[0_0_6px_rgba(56,189,248,0.8)]" size={24} />
+        Game Directory
+    </h2>
 
-                            <div className="space-y-1">
-                                <div className='btn btn-accent btn-xl font-bold bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-400/40 transition'>
-                                    <button
-                                        onClick={handlePickGameFolder}
-                                        disabled={isLoading.game}
-                                        className="btn bg-black/30 backdrop-blur-md
-           border border-purple-400/30 text-white
-           hover:bg-purple-500/30 hover:border-purple-300
-           transition"
+    <div className="space-y-1">
+        <div className="btn btn-xl font-bold bg-white/5 backdrop-blur-md border border-sky-400/20 hover:bg-gradient-to-r hover:from-sky-500/20 hover:via-blue-500/20 hover:to-purple-500/20 transition rounded-xl">
+            
+            <button
+                onClick={handlePickGameFolder}
+                disabled={isLoading.game}
+                className="flex items-center gap-2 px-4 py-2 bg-black/30 backdrop-blur-md
+                border border-purple-400/30 text-white
+                hover:bg-gradient-to-r hover:from-sky-500/20 hover:to-purple-500/20
+                hover:border-purple-300/50 transition rounded-lg"
+            >
+                <Folder size={20} className="text-sky-300" />
+                {isLoading.game ? 'Selecting...' : 'Select Game Folder'}
+            </button>
 
-                                    >
-                                        <Folder size={20} />
-                                        {isLoading.game ? 'Selecting...' : 'Select Game Folder'}
-                                    </button>
+            {gameDir && (
+                <div className="rounded-lg p-2 mt-2 bg-black/20 border border-sky-400/20 backdrop-blur-md">
+                    <p className="font-mono text-sm px-3 py-2 rounded text-sky-200 truncate max-w-full overflow-hidden whitespace-nowrap">
+                        {gameDir}
+                    </p>
+                </div>
+            )}
+        </div>
 
-                                    {gameDir && (
-                                        <div className="rounded-lg p-2">
-                                            <p className="font-mono text-sm px-3 py-2 rounded border truncate max-w-full overflow-hidden whitespace-nowrap">
-                                                {gameDir}
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                                {folderCheckResult && (
-                                    <div className={`flex items-center gap-2 p-3 rounded-lg ${folderCheckResult === 'success'
-                                        ? 'bg-success/5 text-success border border-success'
-                                        : 'bg-error/5 text-error border border-error'
-                                        }`}>
-                                        {folderCheckResult === 'success' ? (
-                                            <>
-                                                <Check size={20} />
-                                                <span>Valid game directory found!</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <X size={20} />
-                                                <span>Game directory not found. Please select the correct folder.</span>
-                                            </>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+        {folderCheckResult && (
+            <div className={`flex items-center gap-2 p-3 rounded-lg border backdrop-blur-md transition
+                ${folderCheckResult === 'success'
+                    ? 'bg-sky-500/10 text-sky-300 border-sky-400/30 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                    : 'bg-purple-500/10 text-purple-300 border-purple-400/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]'
+                }`}>
+                
+                {folderCheckResult === 'success' ? (
+                    <>
+                        <Check size={20} className="text-sky-300" />
+                        <span>Valid game directory found!</span>
+                    </>
+                ) : (
+                    <>
+                        <X size={20} className="text-purple-300" />
+                        <span>Game directory not found. Please select the correct folder.</span>
+                    </>
+                )}
+            </div>
+        )}
+    </div>
+</div>
 
-                        {/* Folder Selection Section */}
-                        <div className="pb-2">
-                            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                                <File className="text-primary" size={24} />
-                                Diff file Directory
-                            </h2>
-
-                            <div className="space-y-1">
-                                <div className='btn btn-accent btn-xl font-bold bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-400/40 transition'>
-                                    <button
-                                        onClick={handlePickDiffFile}
-                                        disabled={isLoading.diff}
-                                        className="btn bg-black/30 backdrop-blur-md
-           border border-purple-400/30 text-white
-           hover:bg-purple-500/30 hover:border-purple-300
-           transition"
-
-                                    >
-                                        <File size={20} />
-                                        {isLoading.diff ? 'Selecting...' : 'Select Diff file Folder'}
-                                    </button>
-
-                                    {diffDir && (
-                                        <div className="rounded-lg p-2">
-                                            <p className="font-mono text-sm px-3 py-2 rounded border truncate max-w-full overflow-hidden whitespace-nowrap">
-                                                {diffDir}
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                                {diffCheckResult && (
-                                    <div className={`flex items-center gap-2 p-3 mt-2 rounded-lg ${diffCheckResult === 'success'
-                                        ? 'bg-success/5 text-success border border-success'
-                                        : 'bg-error/5 text-error border border-error'
-                                        }`}>
-                                        {diffCheckResult === 'success' ? (
-                                            <>
-                                                <Check size={20} />
-                                                <span>Valid diff file found!</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <X size={20} />
-                                                <span>Diff file not found. Please select the correct file.</span>
-                                            </>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Apply Button */}
-                            <div className="mt-6 flex justify-center">
-                                <button
-                                    onClick={handleUpdateGame}
-                                    disabled={!diffDir || !gameDir || isLoading.game || isLoading.diff}
-                                    className="bg-gradient-to-r from-indigo-500/70 to-purple-600/70
-           backdrop-blur-md
-           hover:from-indigo-600/70 hover:to-purple-700/70
-           disabled:from-gray-400/50 disabled:to-gray-500/50
-           text-white px-8 py-3 rounded-lg font-medium
-           transition-all duration-200 flex items-center gap-2
-           shadow-lg hover:shadow-xl
-           border border-white/20
-           disabled:cursor-not-allowed cursor-pointer"
-                                >
-                                    <Settings size={20} />
-                                    {isDiffLoading ? 'Updating...' : 'Update Game'}
-                                </button>
-                            </div>
-                        </div>
-
-                        {isDiffLoading && (
-                            <div className="fixed inset-0 z-60 h-full flex items-center justify-center bg-black/30 backdrop-blur-md">                            <div className="relative w-[90%] max-w-5xl 
-bg-base-100/20 backdrop-blur-lg 
-text-base-content 
-rounded-xl 
-border border-white/20 
-shadow-xl shadow-purple-500/10
-">
-                                <div className="border-b border-purple-500/30 px-6 py-4 mb-4 text-center">
-                                    <h3 className="font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400">
-                                        Update Game
-                                    </h3>
-                                </div>
-
-                                <div className="px-6 pb-6">
-                                    <div className="w-full p-4">
-                                        <div className="space-y-3">
-                                            <div className="flex justify-center items-center text-sm text-white/80">
-                                                <span className="font-bold text-lg text-accent">{stageType}:</span>
-                                                <div className="flex items-center gap-4 ml-2">
-                                                    {stageType !== 'Cut Data' && <span className="text-white font-bold">{progressUpdate.toFixed(0)} / {maxProgressUpdate.toFixed(0)}</span>}
-                                                    {stageType === 'Cut Data' && <span className="text-white font-bold truncate max-w-full overflow-hidden whitespace-nowrap">{messageUpdate}</span>}
-                                                </div>
-                                            </div>
-                                            <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
-                                                <motion.div
-                                                    className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
-                                                    initial={{ width: 0 }}
-                                                    animate={{ width: `${(progressUpdate / maxProgressUpdate) * 100}%` }}
-                                                    transition={{ duration: 0.3 }}
-                                                />
-                                            </div>
-                                            <div className="text-center text-lg text-white/60">
-                                                Please wait...
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            </div>
-                        )}
 
                         {/* คำแนะนำ */}
                         <div className="bg-info/5 rounded-lg p-4 border border-info/30 mt-6">
@@ -425,9 +199,6 @@ shadow-xl shadow-purple-500/10
                             <ol className="text-sm text-error space-y-1">
                                 <li>1. คลิก "เลือกโฟลเดอร์เกม" และเลือกไดเร็กทอรีหลักของเกมของคุณ</li>
                                 <li>2. รอให้ระบบตรวจสอบความถูกต้องของไดเร็กทอรีเกม</li>
-                                <li>3. คลิก "เลือกโฟลเดอร์ไฟล์ Diff" และเลือกไดเร็กทอรีหลักของไฟล์ Diff ของคุณ</li>
-                                <li>4. รอให้ระบบตรวจสอบความถูกต้องของไดเร็กทอรีไฟล์ Diff</li>
-                                <li>5. คลิก "อัปเดตเกม" เพื่อบันทึกการเปลี่ยนแปลงของคุณ</li>
                             </ol>
                         </div>
                     </div>

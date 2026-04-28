@@ -1,10 +1,8 @@
 import { CheckUpdateLauncher } from "@/helper"
-import useModalStore from "@/stores/modalStore"
 import useSettingStore from "@/stores/settingStore"
-import useLauncherStore from "@/stores/launcherStore"
 import { toast } from "react-toastify"
-import { AppService } from '@bindings/Cyrene-launcher/internal/app-service'
-import i18n from "i18next"
+import { AppService } from '@bindings/SilwerWolf999-launcher/internal/app-service'
+
 
 
 export default function SettingModal({
@@ -16,28 +14,16 @@ export default function SettingModal({
 }) {
     if (!isOpen) return null
 
-    const changeLang = (lang: string) => {
-        i18n.changeLanguage(lang)
-        localStorage.setItem("lang", lang)
-        window.location.reload() // 🔥 บังคับรีเฟรช
-    }
 
-    const { setIsOpenSelfUpdateModal } = useModalStore()
     const { closingOption, setClosingOption } = useSettingStore()
-    const { setUpdateData, updateData } = useLauncherStore()
+
     const CheckUpdate = async () => {
         const launcherData = await CheckUpdateLauncher()
         if (!launcherData.isUpdate) {
             toast.success("Launcher is already up to date")
             return
         }
-        setUpdateData({
-            server: updateData.server,
-            proxy: updateData.proxy,
-            launcher: launcherData
-        })
 
-        setIsOpenSelfUpdateModal(true)
     }
     const handleResize = (w: number, h: number) => {
         AppService.SetWindowSize(w, h)
@@ -106,22 +92,6 @@ export default function SettingModal({
                         <p className="text-sm text-info mb-3">
                             Change application language.
                         </p>
-
-                        <div className="flex gap-2">
-                            <button
-                                className="btn btn-sm flex-1"
-                                onClick={() => changeLang("th")}
-                            >
-                                🇹🇭 ไทย
-                            </button>
-
-                            <button
-                                className="btn btn-sm flex-1"
-                                onClick={() => changeLang("en")}
-                            >
-                                🇺🇸 English
-                            </button>
-                        </div>
                     </div>
 
                     {/* Section 2: Closing Option */}

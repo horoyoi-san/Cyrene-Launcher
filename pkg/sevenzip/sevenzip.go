@@ -1,7 +1,7 @@
 package sevenzip
 
 import (
-	"Cyrene-launcher/pkg/constant"
+	"SilwerWolf999-launcher/pkg/constant"
 	"bytes"
 	"fmt"
 	"os"

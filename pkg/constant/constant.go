@@ -1,13 +1,14 @@
 package constant
 
-const ProxyGitUrl = "https://gist.githubusercontent.com/horoyoi-san/87f26bc84cf32eab93d6f6d08f0d0f43/raw/27cc6c584fd6da56cfe0f8deefcf73021a6e597a/ps.json"
+const ProxyGitUrl = "https://gist.githubusercontent.com/horoyoi-san/2e74b72f2f0c69590544bd3beae11bb1/raw/af7e1b749b74a5f3db3163a2a445c44ed46a3ba0/Sophon.json"
 const ServerGitUrl = "https://git.kain.io.vn/api/v1/repos/Firefly-Shelter/FireflyGo_Local_Archive/releases"
 const LauncherGitUrl = ""
+const SophonGitUrl = "https://github.com/horoyoi-san/Hoyo/releases/download/Sophon/net9.0.zip"
 const ServerStorageUrl = "./server"
-const ProxyStorageUrl = "./proxy"
+const SophonStorageUrl = "./Sophon"
 const ServerZipFile = "prebuild_win_x86.zip"
-const ProxyZipFile = "proxy-SR.zip"
 const LauncherFile = ""
+const SophonZipFile = "net9.0.zip"
 const TempUrl = "./temp"
 
 const CurrentLauncherVersion = "2.1.0"

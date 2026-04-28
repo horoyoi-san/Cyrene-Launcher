@@ -1,7 +1,7 @@
 package excelLanguage
 
 import (
-	assetMeta "Cyrene-launcher/pkg/language-patch/asset-meta"
+	assetMeta "SilwerWolf999-launcher/pkg/language-patch/asset-meta"
 	"bytes"
 	"io"
 	"os"

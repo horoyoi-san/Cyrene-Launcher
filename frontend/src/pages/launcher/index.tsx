@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Play, Menu, FolderOpen, Minus } from 'lucide-react';
-import { AppService } from '@bindings/Cyrene-launcher/internal/app-service';
-import { FSService } from '@bindings/Cyrene-launcher/internal/fs-service';
+import { AppService } from '@bindings/SilwerWolf999-launcher/internal/app-service';
+import { FSService } from '@bindings/SilwerWolf999-launcher/internal/fs-service';
 import { toast } from 'react-toastify';
 import path from 'path-browserify'
 import useSettingStore from '@/stores/settingStore';
 import useModalStore from '@/stores/modalStore';
 import useLauncherStore from '@/stores/launcherStore';
 import { motion } from 'motion/react';
-import { CheckUpdateLauncher, CheckUpdateProxy, CheckUpdateServer, sleep, UpdateLauncher, UpdateProxy, UpdateServer } from '@/helper';
-import UpdateModal from '@/components/updateModal';
 import usePanelStore from "@/stores/panelStore";
 
 type CombinedLink = {
@@ -20,6 +18,7 @@ type CombinedLink = {
     src?: string;
     onClick?: () => void;
 };
+
 
 export default function LauncherPage() {
 
@@ -150,52 +149,34 @@ export default function LauncherPage() {
     const { gamePath,
         setGamePath,
         setGameDir,
-        serverPath,
-        proxyPath,
         gameDir,
-        serverVersion,
-        proxyVersion,
+
 
     } = useSettingStore()
 
     const {
-        isOpenDownloadDataModal,
-        isOpenUpdateDataModal,
-        isOpenSelfUpdateModal,
-        setIsOpenDownloadDataModal,
-        setIsOpenUpdateDataModal,
-        setIsOpenSelfUpdateModal
     } = useModalStore()
 
     const {
         isLoading,
         downloadType,
-        serverReady,
+
         proxyReady,
         isDownloading,
-        serverRunning,
-        proxyRunning,
+
         gameRunning,
         progressDownload,
         downloadSpeed,
-        updateData,
 
-        setLauncherVersion,
+
         setIsLoading,
-        setDownloadType,
-        setServerReady,
-        setProxyReady,
-        setIsDownloading,
-        setServerRunning,
-        setProxyRunning,
         setGameRunning,
-        setUpdateData,
     } = useLauncherStore()
 
     const widgetLinks = [
         {
-            tooltip: "Cyrene Launcher Update",
-            href: "https://github.com/horoyoi-san/Hoyo/releases/download/SR/Cyrene-launcher.exe",
+            tooltip: "SilwerWolf999 Launcher Update",
+            href: "https://github.com/horoyoi-san/Hoyo/releases/download/SR/SilwerWolf999-launcher.exe",
             img: "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/build/appicon.png",
             btnClass: "me-media-icon media-list"
         },
@@ -248,108 +229,105 @@ export default function LauncherPage() {
         return () => clearInterval(interval);
     }, []);
 
+    const GAME_RULES = [
+        {
+            id: "StarRail",
+            exe: "StarRail.exe",
+            dataCheck: "StarRail_Data",
+        },
+        {
+            id: "genshin",
+            exe: "GenshinImpact.exe",
+            dataCheck: "GenshinImpact_Data",
+        },
+        {
+            id: "ZenlessZoneZero",
+            exe: "ZenlessZoneZero.exe",
+            dataCheck: "ZenlessZoneZero_Data",
+        },
+        {
+            id: "NexusAnima",
+            exe: "NexusAnima.exe",
+            dataCheck: "NexusAnima_Data",
+        },
+        {
+            id: "PetitPlanet",
+            exe: "PetitPlanet.exe",
+            dataCheck: "PetitPlanet_Data",
+        },
+        {
+            id: "zzz",
+            exe: "ZenlessZoneZero.exe",
+            dataCheck: "ZenlessZoneZero_Data",
+        }
+    ]
 
-    useEffect(() => {
-        const check = async () => {
-            if (!serverVersion || !proxyVersion) {
-                setServerReady(false)
-                setProxyReady(false)
-                return
-            }
+function detectGame(basePath: string) {
+    const fileName = basePath.split(/[\\/]/).pop()
 
-            const serverExists = await FSService.FileExists(serverPath)
-            const proxyExists = await FSService.FileExists(proxyPath)
-            setServerReady(serverExists)
-            setProxyReady(proxyExists)
+    return GAME_RULES.find(game =>
+        fileName?.toLowerCase() === game.exe.toLowerCase()
+    )
+}
+
+const handlePickFile = async () => {
+    try {
+        setIsLoading(true)
+
+        const basePath = await FSService.PickFile("exe")
+
+        const game = detectGame(basePath)
+
+        if (!game) {
+            toast.error("Unsupported game exe")
+            return
         }
 
-        check()
-    }, [serverPath, proxyPath, serverVersion, proxyVersion])
+        const normalized = basePath.replace(/\\/g, '/')
+        const folderPath = path.dirname(normalized)
 
-    useEffect(() => {
-        const checkStartUp = async (): Promise<void> => {
-            const [_, version] = await AppService.GetCurrentLauncherVersion()
-            setLauncherVersion(version)
-            const launcherData = await CheckUpdateLauncher()
-            if (launcherData.isUpdate) {
-                setUpdateData({
-                    server: { isUpdate: false, isExists: false, version: "" },
-                    proxy: { isUpdate: false, isExists: false, version: "" },
-                    launcher: launcherData
-                })
-                setIsOpenSelfUpdateModal(true)
-                return
-            }
-            const serverData = await CheckUpdateServer(serverPath, serverVersion)
-            const proxyData = await CheckUpdateProxy(proxyPath, proxyVersion)
-            setUpdateData({
-                server: serverData,
-                proxy: proxyData,
-                launcher: launcherData
-            })
-            const exitGame = await FSService.FileExists(gamePath)
-            if (!exitGame) {
-                setGameRunning(false)
-                setGamePath("")
-                setGameDir("")
-            }
+        const fullPath = `${folderPath}/${game.dataCheck}`
 
-            if (!serverData.isExists || !proxyData.isExists) {
-                setServerReady(false)
-                setProxyReady(false)
-                setIsOpenDownloadDataModal(true)
-                return
-            }
+        const exists = await FSService.DirExists(fullPath)
 
-            if (serverData.isUpdate || proxyData.isUpdate) {
-                setServerReady(true)
-                setProxyReady(true)
-                setIsOpenUpdateDataModal(true)
-                return
-            }
-            setServerReady(true)
-            setProxyReady(true)
+        if (!exists) {
+            toast.error("Game folder not valid")
+            return
         }
-        checkStartUp()
-    }, []);
 
-    const handlePickFile = async () => {
-        try {
-            setIsLoading(true)
-            const basePath = await FSService.PickFile("exe")
-            if (basePath.endsWith("StarRail.exe") || basePath.endsWith("launcher.exe")) {
-                const normalized = basePath.replace(/\\/g, '/')
-                const folderPath = path.dirname(normalized)
-                const fullPath = `${folderPath}/StarRail_Data/StreamingAssets/DesignData/Windows`
-                const exists = await FSService.DirExists(fullPath)
-                if (!exists) {
-                    toast.error('Game directory not found. Please select the correct folder.')
-                } else {
-                    setGamePath(basePath)
-                    setGameDir(folderPath)
-                    toast.success('Game path set successfully')
-                }
-            } else {
-                toast.error('Not valid file type')
-            }
-        } catch (err: any) {
-            toast.error('PickFolder error:', err)
-        } finally {
-            setIsLoading(false)
-        }
+        setGamePath(basePath)
+        setGameDir(folderPath)
+
+        toast.success(`Loaded: ${game.id}`)
+
+    } catch (err: any) {
+        toast.error('PickFolder error:', err)
+    } finally {
+        setIsLoading(false)
     }
+}
 
-    useEffect(() => {
-        const handleEscKey = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                setIsOpenDownloadDataModal(false);
-                setIsOpenUpdateDataModal(false);
-                setIsOpenSelfUpdateModal(false);
-            }
-        };
-        window.addEventListener('keydown', handleEscKey);
-        return () => window.removeEventListener('keydown', handleEscKey);
-    }, [isOpenDownloadDataModal, isOpenUpdateDataModal, isOpenSelfUpdateModal]);
+const handleStartGame = async () => {
+    if (!gamePath || gameRunning) return
+
+    try {
+        setIsLoading(true)
+
+        const result = await FSService.StartApp(gamePath)
+
+        if (!result) {
+            toast.error("Failed to start game")
+            return
+        }
+
+        setGameRunning(true)
+
+    } catch (err: any) {
+        toast.error("StartGame error:", err)
+    } finally {
+        setIsLoading(false)
+    }
+}
 
     // นับเวลาปัจจุบัน (เรียลไทม์)
     const [time, setTime] = useState<string>("");
@@ -369,94 +347,6 @@ export default function LauncherPage() {
         const interval = setInterval(updateTime, 1000);
         return () => clearInterval(interval);
     }, []);
-
-
-    const handleStartGame = async () => {
-        if (!gamePath) {
-            return
-        }
-        if (gameRunning) {
-            return
-        }
-        try {
-            setIsLoading(true)
-            if (!proxyRunning && !gamePath.endsWith("launcher.exe")) {
-                const resultProxy = await FSService.StartWithConsole(proxyPath)
-                if (!resultProxy) {
-                    toast.error('Failed to start proxy')
-                    return
-                }
-                setProxyRunning(true)
-            }
-            await sleep(500)
-            if (!serverRunning) {
-                const resultServer = await FSService.StartWithConsole(serverPath)
-                if (!resultServer) {
-                    toast.error('Failed to start server')
-                    return
-                }
-                setServerRunning(true)
-            }
-            await sleep(2000)
-            if (gamePath.endsWith("launcher.exe")) {
-                const resultGame = await FSService.StartWithConsole(gamePath)
-                if (!resultGame) {
-                    toast.error('Failed to start game')
-                    return
-                }
-            } else {
-                const resultGame = await FSService.StartApp(gamePath)
-                if (!resultGame) {
-                    toast.error('Failed to start game')
-                    return
-                }
-            }
-            setGameRunning(true)
-
-        } catch (err: any) {
-            toast.error('StartGame error:', err)
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
-
-    const handlerUpdateData = async () => {
-        setIsDownloading(true)
-        if (updateData.launcher.isUpdate) {
-            await UpdateLauncher(updateData.launcher.version)
-            setUpdateData({ ...updateData, launcher: { isUpdate: false, isExists: true, version: updateData.launcher.version } })
-            setIsOpenSelfUpdateModal(true)
-        }
-        if (updateData.server.isUpdate || !updateData.server.isExists) {
-            await UpdateServer(updateData.server.version)
-            setServerReady(true)
-            setUpdateData({ ...updateData, server: { isUpdate: false, isExists: true, version: updateData.server.version } })
-        }
-        if (updateData.proxy.isUpdate || !updateData.proxy.isExists) {
-            await UpdateProxy(updateData.proxy.version)
-            setProxyReady(true)
-            setUpdateData({ ...updateData, proxy: { isUpdate: false, isExists: true, version: updateData.proxy.version } })
-        }
-
-        setDownloadType("")
-        setIsDownloading(false)
-    }
-
-
-    // Handle ESC key to close modal
-    useEffect(() => {
-        const handleEscKey = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                setIsOpenDownloadDataModal(false);
-                setIsOpenUpdateDataModal(false);
-                setIsOpenSelfUpdateModal(false);
-            }
-        };
-        window.addEventListener('keydown', handleEscKey);
-        return () => window.removeEventListener('keydown', handleEscKey);
-    }, [isOpenDownloadDataModal, isOpenUpdateDataModal, isOpenSelfUpdateModal]);
-
 
     return (
         <div className="relative min-h-fit overflow-hidden">
@@ -501,10 +391,10 @@ export default function LauncherPage() {
             {/* Footer / Version */}
             <div className="fixed select-none bottom-2 right-10 text-xs text-gray-400 z-60 flex gap-1 backdrop-blur-sm bg-black/30 px-3 py-1.5 rounded-lg shadow-md">
                 <span className="text-cyan-400 font-semibold drop-shadow-[0_0_6px_rgba(0,255,255,0.8)] hover:drop-shadow-[0_0_12px_rgba(0,255,255,1)] transition">
-                    HSR BETA
+                    BETA
                 </span>|
-                <span className="text-pink-400 font-semibold drop-shadow-[0_0_6px_rgba(255,105,180,0.8)] hover:drop-shadow-[0_0_12px_rgba(255,105,180,1)] transition">
-                    Cyrene Launcher Version: 0.0.7
+                <span className="font-semibold bg-gradient-to-r from-sky-400 via-blue-500 to-purple-500 text-transparent bg-clip-text drop-shadow-[0_0_8px_rgba(99,102,241,0.6)] hover:drop-shadow-[0_0_14px_rgba(168,85,247,0.9)] transition">
+                    Silwer Wolf 999 Launcher Version: 1.0.0
                 </span>|
                 <span className="text-red-500 font-semibold drop-shadow-[0_0_6px_rgba(255,0,0,0.8)] hover:drop-shadow-[0_0_12px_rgba(255,0,0,1)] transition">
                     By Horoyoi-san
@@ -568,7 +458,7 @@ export default function LauncherPage() {
 
 
             {/* Bottom Panel */}
-            {serverReady && proxyReady && !isDownloading && (
+            { proxyReady && !isDownloading && (
 
 
                 <div className="fixed bottom-2 right-0 p-8 z-50">
@@ -579,7 +469,7 @@ export default function LauncherPage() {
 
                             <button
                                 // ปุ่ม Select Game file: คงเดิม
-                                className="btn btn-accent btn-xl font-bold bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-pink-400/40 transition"
+                                className="btn btn-xl font-bold bg-white/5 backdrop-blur-md border border-sky-400/20 hover:bg-gradient-to-r hover:from-sky-500/20 hover:via-blue-500/20 hover:to-purple-500/20 transition rounded-xl"
                                 onClick={handlePickFile}
                             >
                                 <FolderOpen className="w-5 h-5" />
@@ -630,12 +520,25 @@ export default function LauncherPage() {
                                     <button
                                         onClick={() => {
                                             window.open(
-                                                "https://github.com/horoyoi-san/Hoyo/releases/download/SR/Cyrene-launcher.exe",
+                                                "https://github.com/horoyoi-san/Hoyo/releases/download/SR/SilwerWolf999-launcher.exe",
                                                 "_blank"
                                             );
                                         }}
                                     >
-                                        Cyrene Launcher Update
+                                        SilwerWolf999 Launcher Update
+                                    </button>
+                                </li>
+
+                                <li>
+                                    <button
+                                        onClick={() => {
+                                            window.open(
+                                                "https://github.com/horoyoi-san/Hoyo/releases/download/Sophon/net9.0.zip",
+                                                "_blank"
+                                            );
+                                        }}
+                                    >
+                                        Sophon.download Update
                                     </button>
                                 </li>
 
@@ -664,43 +567,13 @@ export default function LauncherPage() {
                                 </li>
 
                                 <li><button onClick={handlePickFile}>Change Game Path</button></li>
-                                <li>
-                                    <button
-                                        onClick={async () => {
-                                            const serverData = await CheckUpdateServer(serverPath, serverVersion)
-                                            const proxyData = await CheckUpdateProxy(proxyPath, proxyVersion)
-                                            setUpdateData({
-                                                server: serverData,
-                                                proxy: proxyData,
-                                                launcher: updateData.launcher
-                                            })
 
-                                            if (!serverData.isExists || !proxyData.isExists) {
-                                                setIsOpenDownloadDataModal(true)
-                                                return
-                                            }
-                                            if (serverData.isUpdate || proxyData.isUpdate) {
-                                                setIsOpenUpdateDataModal(true)
-                                                return
-                                            }
-                                            toast.success("No updates available")
-                                        }}>
-                                        Check for Updates Server & Proxy
-                                    </button>
+                                <li>
+
                                 </li>
                                 <li>
 
                                 </li>
-                                <li><button disabled={!serverPath} onClick={() => {
-                                    if (serverPath) {
-                                        FSService.OpenFolder("./server")
-                                    }
-                                }}>Open server folder</button></li>
-                                <li><button disabled={!proxyPath} onClick={() => {
-                                    if (proxyPath) {
-                                        FSService.OpenFolder("./proxy")
-                                    }
-                                }}>Open proxy folder</button></li>
                                 <li><button disabled={!gameDir} onClick={() => {
                                     if (gameDir) {
                                         FSService.OpenFolder(gameDir + "/StarRail_Data/Persistent/Audio/AudioPackage/Windows")
@@ -714,12 +587,7 @@ export default function LauncherPage() {
             )}
 
             {/* Downloading */}
-            {isDownloading && (
-                updateData.proxy.isUpdate
-                || updateData.server.isUpdate
-                || !updateData.proxy.isExists
-                || !updateData.server.isExists
-            ) && (
+            {isDownloading  && (
                     <div className="fixed bottom-4 left-1/2  transform -translate-x-1/2 z-60 w-[60vw] bg-black/20 backdrop-blur-sm rounded-lg p-4 shadow-lg">
                         <div className="space-y-3">
                             <div className="flex justify-center items-center text-sm text-white/80">
@@ -744,7 +612,7 @@ export default function LauncherPage() {
                     </div>
                 )}
 
-            {isDownloading && updateData.launcher.isUpdate && (
+            {isDownloading && (
                 <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-60 w-[60vw] bg-black/20 backdrop-blur-sm rounded-lg p-4 shadow-lg">
                     <div className="space-y-3 text-sm text-white/80 text-center">
                         {["update:launcher:downloading", "update:launcher:success", "update:launcher:failed"].includes(downloadType) && (
@@ -821,42 +689,6 @@ export default function LauncherPage() {
                 </div>
 
             </div>
-
-
-            {/* Modal */}
-            <UpdateModal
-                isOpen={isOpenUpdateDataModal}
-                onClose={() => setIsOpenUpdateDataModal(false)}
-                title="Update Data"
-                message="Do you want to update data server and proxy?"
-                buttons={[
-                    { text: "No", onClick: () => setIsOpenUpdateDataModal(false), variant: "outline" },
-                    { text: "Yes", onClick: async () => { setIsOpenUpdateDataModal(false); await handlerUpdateData() }, variant: "primary" }
-                ]}
-            />
-
-            <UpdateModal
-                isOpen={isOpenDownloadDataModal}
-                onClose={() => setIsOpenDownloadDataModal(false)}
-                title="Download Data"
-                message="Data server and proxy download required"
-                buttons={[
-                    { text: "Download", onClick: async () => { setIsOpenDownloadDataModal(false); await handlerUpdateData() }, variant: "primary" }
-                ]}
-            />
-
-            <UpdateModal
-                isOpen={isOpenSelfUpdateModal}
-                onClose={() => setIsOpenSelfUpdateModal(false)}
-                title="Update Launcher"
-                message="Do you want to update launcher?"
-                buttons={[
-                    { text: "No", onClick: () => setIsOpenSelfUpdateModal(false), variant: "outline" },
-                    { text: "Yes", onClick: async () => { setIsOpenSelfUpdateModal(false); await handlerUpdateData() }, variant: "primary" }
-                ]}
-            />
-
-
 
 
             {showPanel && (

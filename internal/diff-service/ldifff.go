@@ -1,10 +1,10 @@
 package diffService
 
 import (
-	"Cyrene-launcher/pkg/Cyrene"
-	"Cyrene-launcher/pkg/Cyrene/pb"
-	"Cyrene-launcher/pkg/hpatchz"
-	"Cyrene-launcher/pkg/models"
+	"SilwerWolf999-launcher/pkg/SilwerWolf999"
+	"SilwerWolf999-launcher/pkg/SilwerWolf999/pb"
+	"SilwerWolf999-launcher/pkg/hpatchz"
+	"SilwerWolf999-launcher/pkg/models"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -34,7 +34,7 @@ func (h *DiffService) LDiffPatchData(gamePath string) (bool, string) {
 			manifestName := entry.Name()
 			manifestPath := filepath.Join(gamePath, manifestName)
 
-			manifest, err := Cyrene.LoadManifestProto(manifestPath)
+			manifest, err := SilwerWolf999.LoadManifestProto(manifestPath)
 			if err != nil {
 				continue
 			}
@@ -83,7 +83,7 @@ func (h *DiffService) LDiffPatchData(gamePath string) (bool, string) {
 				wg.Wait()
 
 				for _, ma := range matchingAssets {
-					err := Cyrene.LDiffFile(ma.Asset, ma.AssetName, ma.AssetSize, ldiffPath, gamePath)
+					err := SilwerWolf999.LDiffFile(ma.Asset, ma.AssetName, ma.AssetSize, ldiffPath, gamePath)
 					if err != nil {
 						continue
 					}

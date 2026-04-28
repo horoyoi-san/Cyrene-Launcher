@@ -1,9 +1,9 @@
 package languageService
 
 import (
-	assetMeta "Cyrene-launcher/pkg/language-patch/asset-meta"
-	excelLanguage "Cyrene-launcher/pkg/language-patch/excel-language"
-	"Cyrene-launcher/pkg/models"
+	assetMeta "SilwerWolf999-launcher/pkg/language-patch/asset-meta"
+	excelLanguage "SilwerWolf999-launcher/pkg/language-patch/excel-language"
+	"SilwerWolf999-launcher/pkg/models"
 	"bytes"
 	"os"
 	"path/filepath"

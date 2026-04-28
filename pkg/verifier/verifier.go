@@ -1,7 +1,7 @@
 package verifier
 
 import (
-	"Cyrene-launcher/pkg/models"
+	"SilwerWolf999-launcher/pkg/models"
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"

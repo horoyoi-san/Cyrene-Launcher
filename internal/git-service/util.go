@@ -1,7 +1,7 @@
 package gitService
 
 import (
-	"Cyrene-launcher/pkg/models"
+	"SilwerWolf999-launcher/pkg/models"
 	"archive/zip"
 	"encoding/json"
 	"fmt"

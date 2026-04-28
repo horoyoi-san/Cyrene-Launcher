@@ -5,19 +5,19 @@
 !include "FileFunc.nsh"
 
 !ifndef INFO_PROJECTNAME
-    !define INFO_PROJECTNAME "Cyrene-launcher"
+    !define INFO_PROJECTNAME "SilwerWolf999-launcher"
 !endif
 !ifndef INFO_COMPANYNAME
-    !define INFO_COMPANYNAME "Cyrene Shelter"
+    !define INFO_COMPANYNAME "SilwerWolf999 Shelter"
 !endif
 !ifndef INFO_PRODUCTNAME
-    !define INFO_PRODUCTNAME "Cyrene Launcher"
+    !define INFO_PRODUCTNAME "SilwerWolf999 Launcher"
 !endif
 !ifndef INFO_PRODUCTVERSION
     !define INFO_PRODUCTVERSION "1.0.0"
 !endif
 !ifndef INFO_COPYRIGHT
-    !define INFO_COPYRIGHT "@ 2025, Cyrene Shelter"
+    !define INFO_COPYRIGHT "@ 2025, SilwerWolf999 Shelter"
 !endif
 !ifndef PRODUCT_EXECUTABLE
     !define PRODUCT_EXECUTABLE "${INFO_PROJECTNAME}.exe"

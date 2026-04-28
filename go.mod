@@ -1,4 +1,4 @@
-module Cyrene-launcher
+module SilwerWolf999-launcher
 
 go 1.25.5
 

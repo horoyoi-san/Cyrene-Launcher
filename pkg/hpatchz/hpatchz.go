@@ -1,7 +1,7 @@
 package hpatchz
 
 import (
-	"Cyrene-launcher/pkg/constant"
+	"SilwerWolf999-launcher/pkg/constant"
 	"fmt"
 	"os/exec"
 	"syscall"

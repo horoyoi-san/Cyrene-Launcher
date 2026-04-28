@@ -9,22 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SrtoolsRouteImport } from './routes/srtools'
-import { Route as LanguageRouteImport } from './routes/language'
+import { Route as NapRouteImport } from './routes/nap'
+import { Route as HygRouteImport } from './routes/hyg'
 import { Route as HowtoRouteImport } from './routes/howto'
+import { Route as HkrpgRouteImport } from './routes/hkrpg'
+import { Route as Hk4eRouteImport } from './routes/hk4e'
 import { Route as DiffRouteImport } from './routes/diff'
-import { Route as AnalysisRouteImport } from './routes/analysis'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as Bh3RouteImport } from './routes/bh3'
+import { Route as AbcRouteImport } from './routes/abc'
 import { Route as IndexRouteImport } from './routes/index'
 
-const SrtoolsRoute = SrtoolsRouteImport.update({
-  id: '/srtools',
-  path: '/srtools',
+const NapRoute = NapRouteImport.update({
+  id: '/nap',
+  path: '/nap',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LanguageRoute = LanguageRouteImport.update({
-  id: '/language',
-  path: '/language',
+const HygRoute = HygRouteImport.update({
+  id: '/hyg',
+  path: '/hyg',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowtoRoute = HowtoRouteImport.update({
@@ -32,19 +34,29 @@ const HowtoRoute = HowtoRouteImport.update({
   path: '/howto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HkrpgRoute = HkrpgRouteImport.update({
+  id: '/hkrpg',
+  path: '/hkrpg',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Hk4eRoute = Hk4eRouteImport.update({
+  id: '/hk4e',
+  path: '/hk4e',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DiffRoute = DiffRouteImport.update({
   id: '/diff',
   path: '/diff',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AnalysisRoute = AnalysisRouteImport.update({
-  id: '/analysis',
-  path: '/analysis',
+const Bh3Route = Bh3RouteImport.update({
+  id: '/bh3',
+  path: '/bh3',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const AbcRoute = AbcRouteImport.update({
+  id: '/abc',
+  path: '/abc',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,86 +67,100 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/analysis': typeof AnalysisRoute
+  '/abc': typeof AbcRoute
+  '/bh3': typeof Bh3Route
   '/diff': typeof DiffRoute
+  '/hk4e': typeof Hk4eRoute
+  '/hkrpg': typeof HkrpgRoute
   '/howto': typeof HowtoRoute
-  '/language': typeof LanguageRoute
-  '/srtools': typeof SrtoolsRoute
+  '/hyg': typeof HygRoute
+  '/nap': typeof NapRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/analysis': typeof AnalysisRoute
+  '/abc': typeof AbcRoute
+  '/bh3': typeof Bh3Route
   '/diff': typeof DiffRoute
+  '/hk4e': typeof Hk4eRoute
+  '/hkrpg': typeof HkrpgRoute
   '/howto': typeof HowtoRoute
-  '/language': typeof LanguageRoute
-  '/srtools': typeof SrtoolsRoute
+  '/hyg': typeof HygRoute
+  '/nap': typeof NapRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/analysis': typeof AnalysisRoute
+  '/abc': typeof AbcRoute
+  '/bh3': typeof Bh3Route
   '/diff': typeof DiffRoute
+  '/hk4e': typeof Hk4eRoute
+  '/hkrpg': typeof HkrpgRoute
   '/howto': typeof HowtoRoute
-  '/language': typeof LanguageRoute
-  '/srtools': typeof SrtoolsRoute
+  '/hyg': typeof HygRoute
+  '/nap': typeof NapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
-    | '/analysis'
+    | '/abc'
+    | '/bh3'
     | '/diff'
+    | '/hk4e'
+    | '/hkrpg'
     | '/howto'
-    | '/language'
-    | '/srtools'
+    | '/hyg'
+    | '/nap'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
-    | '/analysis'
+    | '/abc'
+    | '/bh3'
     | '/diff'
+    | '/hk4e'
+    | '/hkrpg'
     | '/howto'
-    | '/language'
-    | '/srtools'
+    | '/hyg'
+    | '/nap'
   id:
     | '__root__'
     | '/'
-    | '/about'
-    | '/analysis'
+    | '/abc'
+    | '/bh3'
     | '/diff'
+    | '/hk4e'
+    | '/hkrpg'
     | '/howto'
-    | '/language'
-    | '/srtools'
+    | '/hyg'
+    | '/nap'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  AnalysisRoute: typeof AnalysisRoute
+  AbcRoute: typeof AbcRoute
+  Bh3Route: typeof Bh3Route
   DiffRoute: typeof DiffRoute
+  Hk4eRoute: typeof Hk4eRoute
+  HkrpgRoute: typeof HkrpgRoute
   HowtoRoute: typeof HowtoRoute
-  LanguageRoute: typeof LanguageRoute
-  SrtoolsRoute: typeof SrtoolsRoute
+  HygRoute: typeof HygRoute
+  NapRoute: typeof NapRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/srtools': {
-      id: '/srtools'
-      path: '/srtools'
-      fullPath: '/srtools'
-      preLoaderRoute: typeof SrtoolsRouteImport
+    '/nap': {
+      id: '/nap'
+      path: '/nap'
+      fullPath: '/nap'
+      preLoaderRoute: typeof NapRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/language': {
-      id: '/language'
-      path: '/language'
-      fullPath: '/language'
-      preLoaderRoute: typeof LanguageRouteImport
+    '/hyg': {
+      id: '/hyg'
+      path: '/hyg'
+      fullPath: '/hyg'
+      preLoaderRoute: typeof HygRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/howto': {
@@ -144,6 +170,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowtoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hkrpg': {
+      id: '/hkrpg'
+      path: '/hkrpg'
+      fullPath: '/hkrpg'
+      preLoaderRoute: typeof HkrpgRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hk4e': {
+      id: '/hk4e'
+      path: '/hk4e'
+      fullPath: '/hk4e'
+      preLoaderRoute: typeof Hk4eRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/diff': {
       id: '/diff'
       path: '/diff'
@@ -151,18 +191,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiffRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/analysis': {
-      id: '/analysis'
-      path: '/analysis'
-      fullPath: '/analysis'
-      preLoaderRoute: typeof AnalysisRouteImport
+    '/bh3': {
+      id: '/bh3'
+      path: '/bh3'
+      fullPath: '/bh3'
+      preLoaderRoute: typeof Bh3RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/abc': {
+      id: '/abc'
+      path: '/abc'
+      fullPath: '/abc'
+      preLoaderRoute: typeof AbcRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -177,12 +217,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  AnalysisRoute: AnalysisRoute,
+  AbcRoute: AbcRoute,
+  Bh3Route: Bh3Route,
   DiffRoute: DiffRoute,
+  Hk4eRoute: Hk4eRoute,
+  HkrpgRoute: HkrpgRoute,
   HowtoRoute: HowtoRoute,
-  LanguageRoute: LanguageRoute,
-  SrtoolsRoute: SrtoolsRoute,
+  HygRoute: HygRoute,
+  NapRoute: NapRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
