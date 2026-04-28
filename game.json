@@ -2,6 +2,7 @@
   "games": [
     {
       "id": "Genshin",
+      "name": "Genshin Impact",
       "biz": "hk4e_global",
       "gameId": "gopR6Cufr3",
       "package": "game",
@@ -10,6 +11,7 @@
     },
     {
       "id": "StarRail",
+      "name": "Honkai: Star Rail",
       "biz": "hkrpg_global",
       "gameId": "4ziysqXOQ8",
       "package": "game",
