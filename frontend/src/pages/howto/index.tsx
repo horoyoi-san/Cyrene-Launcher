@@ -83,7 +83,7 @@ return (
         </h2>
 
         <div className="space-y-2 text-sm text-indigo-200">
-          <p>1. ดาวน์โหลด <span className="font-semibold">Sophon Downloader</span> <span className="font-semibold">โหลดได้ที่ขึด3ขี หน้าหลัก</span></p>
+          <p>1. ดาวน์โหลด{" "}<a href="https://github.com/horoyoi-san/game-Launcher/releases/download/sophon/net9.0.zip"target="_blank"rel="noopener noreferrer"className="font-semibold text-blue-400 underline hover:text-blue-300">Sophon Downloader</a> หรือโหลดได้ที่หน้า Home ตรงขีด 3 ขีด</p>
 
           <p>2. แตกไฟล์ลงใน:</p>
           <code className="block bg-black/40 px-2 py-1 rounded text-xs">

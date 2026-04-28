@@ -96,7 +96,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  fetch("https://raw.githubusercontent.com/horoyoi-san/Cyrene-Launcher/refs/heads/main/game.json")
+  fetch("https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/silwerwolf999-launcher/game.json")
     .then(res => res.json())
     .then(data => setConfig(data))
     .catch(err => console.error(err));
