@@ -1,22 +1,58 @@
 {
   "games": [
     {
-      "id": "Genshin",
+      "id": "HonkaiImpact3rd",
+      "name": "Honkai Impact 3rd",
+      "biz": "bh3_global",
+      "gameId": "gopR6Cufr3",
+      "package": "game",
+      "version": "8.7",
+      "output": "GameData/HonkaiImpact3rd"
+    },
+    {
+      "id": "GenshinImpact",
       "name": "Genshin Impact",
       "biz": "hk4e_global",
       "gameId": "gopR6Cufr3",
       "package": "game",
       "version": "6.6",
-      "output": "GameData/Genshin"
+      "output": "GameData/GenshinImpact"
     },
     {
-      "id": "StarRail",
+      "id": "HonkaiStarRail",
       "name": "Honkai: Star Rail",
       "biz": "hkrpg_global",
       "gameId": "4ziysqXOQ8",
       "package": "game",
       "version": "3.6",
-      "output": "GameData/StarRail"
+      "output": "GameData/HonkaiStarRail"
+    },
+    {
+      "id": "ZenlessZoneZero",
+      "name": "Genshin Impact",
+      "biz": "nap_global",
+      "gameId": "gopR6Cufr3",
+      "package": "game",
+      "version": "2.7",
+      "output": "GameData/ZenlessZoneZero"
+    },
+    {
+      "id": "HonkaiNexusanima",
+      "name": "Honkai: Nexus anima",
+      "biz": "abc_global",
+      "gameId": "4ziysqXOQ8",
+      "package": "game",
+      "version": "0.3.0",
+      "output": "GameData/HonkaiNexusanima"
+    },
+    {
+      "id": "Petit Planet",
+      "name": "Petit Planet",
+      "biz": "hyg_global",
+      "gameId": "4ziysqXOQ8",
+      "package": "game",
+      "version": "0.92.7",
+      "output": "GameData/PetitPlanet"
     }
   ]
 }
