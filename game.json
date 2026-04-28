@@ -1,7 +1,7 @@
 {
   "games": [
     {
-      "id": "genshin",
+      "id": "Genshin",
       "biz": "hk4e_global",
       "gameId": "gopR6Cufr3",
       "package": "game",
@@ -11,9 +11,9 @@
     {
       "id": "StarRail",
       "biz": "hkrpg_global",
-      "gameId": "gopR6Cufr3",
+      "gameId": "4ziysqXOQ8",
       "package": "game",
-      "version": "6.0",
+      "version": "3.6",
       "output": "GameData/StarRail"
     }
   ]
