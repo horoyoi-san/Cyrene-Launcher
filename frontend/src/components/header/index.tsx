@@ -54,7 +54,7 @@ export default function Header() {
                         className="hover:scale-110 transition"
                     >
                         <img
-                            src="https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/icon/hoyoverse-icon.png"
+                            src="https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/icon/hoyoverse-icon.png"
                             alt="bg"
                             className="w-5 h-5 object-cover rounded"
                         />
@@ -69,7 +69,7 @@ export default function Header() {
                         className="hover:scale-110 transition"
                     >
                         <img
-                            src="https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/icon/hoyo-game-logo.png"
+                            src="https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/icon/hoyo-game-logo.png"
                             alt="bg"
                             className="w-5 h-5 object-cover rounded"
                         />
@@ -99,7 +99,7 @@ export default function Header() {
                         className="hover:scale-110 transition"
                     >
                         <img
-                            src="https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/icon/AvatarIcon.webp"
+                            src="https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/icon/AvatarIcon.webp"
                             alt="bg"
                             className="w-5 h-5 object-cover rounded"
                         />
@@ -114,22 +114,7 @@ export default function Header() {
                         className="hover:scale-110 transition"
                     >
                         <img
-                            src="https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/icon/paimon-2.png"
-                            alt="bg"
-                            className="w-5 h-5 object-cover rounded"
-                        />
-                    </button>
-
-                    <button
-                        onClick={() => {
-                            setActiveUrl("https://honkai-star-rail-beta-gacha.vercel.app");
-                            setShowPanel(true);
-                            setIsMinimized(false);
-                        }}
-                        className="hover:scale-110 transition"
-                    >
-                        <img
-                            src="https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/icon/pompom.png"
+                            src="https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/icon/paimon-2.png"
                             alt="bg"
                             className="w-5 h-5 object-cover rounded"
                         />

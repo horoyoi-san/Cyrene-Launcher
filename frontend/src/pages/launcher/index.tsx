@@ -131,16 +131,16 @@ export default function LauncherPage() {
 
     // 🎬 News Video (ไม่มีข้อความ)
     const newsVideos = [
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/1.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/2.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/3.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/4.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/5.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/6.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/7.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/8.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/9.mp4",
-        "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/frontend/public/video/10.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/1.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/2.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/3.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/4.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/5.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/6.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/7.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/8.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/9.mp4",
+        "https://raw.githubusercontent.com/horoyoi-san/game-Launcher/refs/heads/cyrene-launcher/frontend/public/video/10.mp4",
     ];
 
     const [activeNewsIndex, setActiveNewsIndex] = useState(0);
@@ -195,7 +195,7 @@ export default function LauncherPage() {
     const widgetLinks = [
         {
             tooltip: "Cyrene Launcher Update",
-            href: "https://github.com/horoyoi-san/Hoyo/releases/download/SR/Cyrene-launcher.exe",
+            href: "https://github.com/horoyoi-san/game-Launcher/releases/download/sr/Cyrene-launcher.exe",
             img: "https://raw.githubusercontent.com/horoyoi-san/Hoyo/refs/heads/launcher-sr/build/appicon.png",
             btnClass: "me-media-icon media-list"
         },
@@ -630,7 +630,7 @@ export default function LauncherPage() {
                                     <button
                                         onClick={() => {
                                             window.open(
-                                                "https://github.com/horoyoi-san/Hoyo/releases/download/SR/Cyrene-launcher.exe",
+                                                "https://github.com/horoyoi-san/game-Launcher/releases/download/sr/Cyrene-launcher.exe",
                                                 "_blank"
                                             );
                                         }}
