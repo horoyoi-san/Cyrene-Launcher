@@ -40,7 +40,7 @@ export function GetDir(path) {
 }
 
 /**
- * @returns {$CancellablePromise<[string, string]>}
+ * @returns {$CancellablePromise<string>}
  */
 export function GetLauncherDir() {
     return $Call.ByID(1772893036);

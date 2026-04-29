@@ -533,7 +533,7 @@ const handleStartGame = async () => {
                                     <button
                                         onClick={() => {
                                             window.open(
-                                                "https://github.com/horoyoi-san/Hoyo/releases/download/Sophon/net9.0.zip",
+                                                "https://github.com/horoyoi-san/game-Launcher/releases/download/sophon/sophon.zip",
                                                 "_blank"
                                             );
                                         }}

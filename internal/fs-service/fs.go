@@ -183,7 +183,7 @@ func (f *FSService) ensureSophonInstalled() (string, error) {
 	// ✅ 2. create folder
 	_ = os.MkdirAll(sophonDir, 0755)
 
-	zipPath := filepath.Join(sophonDir, "net9.0.zip")
+	zipPath := filepath.Join(sophonDir, "sophon.zip")
 
 	// ✅ 3. download fixed file
 	resp, err := http.Get(constant.SophonGitUrl)
@@ -230,7 +230,7 @@ func DownloadSophon() error {
 
 	os.MkdirAll(constant.SophonStorageUrl, 0755)
 
-	zipPath := filepath.Join(constant.SophonStorageUrl, "net9.0.zip")
+	zipPath := filepath.Join(constant.SophonStorageUrl, "sophon.zip")
 
 	out, err := os.Create(zipPath)
 	if err != nil {
@@ -247,9 +247,31 @@ func DownloadSophon() error {
 	return unzip(zipPath, constant.SophonStorageUrl)
 }
 
+func (f *FSService) GetLauncherDir() (string, error) {
+	exePath, err := os.Executable()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Dir(exePath), nil
+}
+
 func (f *FSService) RunDownloader(gameID string, pkg string, version string, output string, region string) (bool, error) {
 
 	fmt.Println("STEP 1: start")
+
+	launcherDir, err := f.GetLauncherDir()
+	if err != nil {
+		return false, err
+	}
+
+	output = filepath.Join(
+		launcherDir,
+		"GameData",
+		gameID,
+	)
+
+	fmt.Println("LAUNCHER DIR:", launcherDir)
+	fmt.Println("FORCED OUTPUT:", output)
 
 	exePath, err := f.ensureSophonInstalled()
 	if err != nil {
@@ -264,6 +286,9 @@ func (f *FSService) RunDownloader(gameID string, pkg string, version string, out
 	}
 
 	_ = exec.Command("taskkill", "/F", "/IM", "GenshinImpact.exe").Run()
+
+	output = sanitizePath(output)
+	fmt.Println("SANITIZED OUTPUT:", output)
 
 	cmd := exec.Command(
 		exePath,
@@ -308,15 +333,6 @@ func (f *FSService) RunDownloader(gameID string, pkg string, version string, out
 	return true, nil
 }
 
-func (f *FSService) GetLauncherDir() (string, string) {
-	exePath, err := os.Executable()
-	if err != nil {
-		return "", err.Error()
-	}
-
-	return filepath.Dir(exePath), ""
-}
-
 func (w *ProgressWriter) Write(p []byte) (n int, err error) {
 	line := string(p)
 
@@ -335,4 +351,18 @@ func unzip(zipPath, dest string) error {
 	)
 
 	return cmd.Run()
+}
+
+func sanitizePath(p string) string {
+	p = strings.TrimSpace(p)
+	p = strings.TrimSuffix(p, ",")
+	p = filepath.Clean(p)
+
+	// 🔥 กัน case bin, แล้ว clean ไม่ทัน
+	if strings.Contains(p, ",") {
+		parts := strings.Split(p, ",")
+		p = parts[0]
+	}
+
+	return p
 }

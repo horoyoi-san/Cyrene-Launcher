@@ -76,32 +76,56 @@ return (
         How to Use
       </h1>
 
-      {/* 📥 Sophon */}
-      <div className="bg-indigo-500/10 border border-indigo-400/30 p-6 rounded-xl">
-        <h2 className="text-xl font-bold text-indigo-300 mb-4 flex items-center gap-2">
-          📥 ดาวน์โหลดไฟล์เกม
-        </h2>
+{/* 📥 Sophon */}
+<div className="bg-indigo-500/10 border border-indigo-400/30 p-6 rounded-xl">
+  <h2 className="text-xl font-bold text-indigo-300 mb-4 flex items-center gap-2">
+    📥 ดาวน์โหลดไฟล์เกม
+  </h2>
 
-        <div className="space-y-2 text-sm text-indigo-200">
-          <p>1. ดาวน์โหลด{" "}<a href="https://github.com/horoyoi-san/game-Launcher/releases/download/sophon/net9.0.zip"target="_blank"rel="noopener noreferrer"className="font-semibold text-blue-400 underline hover:text-blue-300">Sophon Downloader</a> หรือโหลดได้ที่หน้า Home ตรงขีด 3 ขีด</p>
+      <div className="space-y-2 text-sm text-indigo-200">
+        <p>
+          1. ดาวน์โหลด{" "}
+          <a
+            href="https://github.com/horoyoi-san/game-Launcher/releases/download/sophon/sophon.zip"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-blue-400 underline hover:text-blue-300"
+          >
+            Sophon Downloader
+          </a>{" "}
+          หรือโหลดได้ที่หน้า Home ตรงขีด 3 ขีด
+        </p>
 
-          <p>2. แตกไฟล์ลงใน:</p>
-          <code className="block bg-black/40 px-2 py-1 rounded text-xs">
-            /bin
-          </code>
+        <p>2. แตกไฟล์ลงใน:</p>
+        <code className="block bg-black/40 px-2 py-1 rounded text-xs">
+          /main ต้องอยู่ด้วยกันกับ Silwerwolf-launcher.exe
+        </code>
 
-          <p>3. ตรวจสอบไฟล์:</p>
-          <code className="block bg-black/40 px-2 py-1 rounded text-xs">
-            sophon.downloader.exe
-          </code>
+        <p>ในโฟลเดอร์ควรมี:</p>
+        <pre className="block bg-black/40 px-2 py-2 rounded text-xs text-indigo-200">
+        {` 
+        ├── Silwerwolf-launcher.exe
+        ├── Sophon/
+        └── sophon.download.exe
+        `}
+        </pre>
 
-          <p>4. เปิด Launcher แล้วกด <span className="font-semibold">Download Game</span></p>
-        </div>
+        <p>3. ตรวจสอบไฟล์:</p>
+        <code className="block bg-black/40 px-2 py-1 rounded text-xs">
+          sophon.downloader.exe
+        </code>
 
-        <div className="mt-3 text-xs text-indigo-400">
-          ⚠️ ต้องวางไว้ใน /bin เท่านั้น
-        </div>
+        <p>
+          4. เปิด Launcher แล้วกด{" "}
+          <span className="font-semibold">Download Game</span>
+        </p>
       </div>
+
+      <div className="mt-3 text-xs text-indigo-400">
+        ⚠️ Sophon ต้องอยู่ด้วยกันกับ Silwerwolf-launcher.exe เท่านั้น
+      </div>
+    </div>
+
 
       {/* 🔙 Back */}
       <div className="text-center pt-4">
