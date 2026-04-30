@@ -1,6 +1,6 @@
 package constant
 
-const ProxyGitUrl = "https://gist.githubusercontent.com/horoyoi-san/2e74b72f2f0c69590544bd3beae11bb1/raw/af7e1b749b74a5f3db3163a2a445c44ed46a3ba0/Sophon.json"
+const ProxyGitUrl = "https://gist.githubusercontent.com/horoyoi-san/87f26bc84cf32eab93d6f6d08f0d0f43/raw/9bf50c60edf2b527af4ac2bda31e7e0793fb73ff/ps.json"
 const ServerGitUrl = "https://git.kain.io.vn/api/v1/repos/Firefly-Shelter/FireflyGo_Local_Archive/releases"
 const LauncherGitUrl = ""
 const SophonGitUrl = "https://github.com/horoyoi-san/game-Launcher/releases/download/sophon/sophon.zip"

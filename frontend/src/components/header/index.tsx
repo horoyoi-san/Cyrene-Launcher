@@ -58,8 +58,6 @@ export default function Header() {
                     <Link to="/nap" className="hover:text-cyan-300"><img src="/icon/nap.png" className="w-8 h-8 object-contain"/></Link>
                     <Link to="/abc" className="hover:text-cyan-300"><img src="/icon/abc.png" className="w-8 h-8 object-contain"/></Link>
                     <Link to="/hyg" className="hover:text-cyan-300"><img src="/icon/hyg.png" className="w-8 h-8 object-contain"/></Link>
-                    <Link to="/howto" className="hover:text-cyan-300"><BookOpen size={30} /></Link>
-                    <Link to="/diff" className="hover:text-cyan-300"><GitCompareArrows size={30} /></Link>
 
                     <button
                         onClick={() => {
@@ -86,7 +84,8 @@ export default function Header() {
                     >
                         <Images size={30} />
                     </button>
-
+                    
+                    <Link to="/howto" className="hover:text-cyan-300"><BookOpen size={30} /></Link>
                 </div>
             </div>
 
