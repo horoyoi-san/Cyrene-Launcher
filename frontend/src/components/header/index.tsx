@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import useModalStore from "@/stores/modalStore";
-import { BookOpen, GitCompareArrows, Home, Images,  Minus, Settings, X } from "lucide-react";
+import { BookOpen, Home, Images,  Minus, Settings, X } from "lucide-react";
 import { AppService } from "@bindings/SilwerWolf999-launcher/internal/app-service";
 import { motion } from "motion/react";
 import usePanelStore from "@/stores/panelStore";
@@ -84,7 +84,7 @@ export default function Header() {
                     >
                         <Images size={30} />
                     </button>
-                    
+
                     <Link to="/howto" className="hover:text-cyan-300"><BookOpen size={30} /></Link>
                 </div>
             </div>
