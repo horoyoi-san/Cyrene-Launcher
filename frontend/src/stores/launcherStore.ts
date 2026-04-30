@@ -32,11 +32,13 @@ const useLauncherStore = create<LauncherState>((set, get) => ({
     isLoading: false,
     downloadType: "",
     serverReady: false,
-    proxyReady: false,
+    proxyReady: true,
     isDownloading: false,
     serverRunning: false,
     proxyRunning: false,
     gameRunning: false,
+
+    
     progressDownload: 0,
     downloadSpeed: "",
     launcherVersion: "",
