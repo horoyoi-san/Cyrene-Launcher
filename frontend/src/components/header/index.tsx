@@ -129,7 +129,7 @@ export default function Header() {
 
                     <button
                         onClick={() => {
-                            setActiveUrl("https://hoyoplay-background-plum.vercel.app");
+                            setActiveUrl("https://hoyogame-background.vercel.app");
                             setShowPanel(true);
                             setIsMinimized(false);
                         }}
